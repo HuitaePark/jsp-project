@@ -27,6 +27,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version> <!-- 버전 추가 -->
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -36,8 +37,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    d>
-            <version>${junit.version}</version>
+
     <build>
         <plugins>
             <plugin>
