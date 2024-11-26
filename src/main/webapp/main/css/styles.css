@@ -8,11 +8,8 @@
 .swiper-pagination-bullet {
     font-weight: 800;
 }
-@layer utilities {
-    .font-anton {
-        font-family: 'Anton', sans-serif;
-    }
-}
+/* 사용자 정의 CSS 파일 */
+
 /* 전체 배경과 텍스트 색상 설정 */
 body {
     background-color: #000000; /* 검은색 배경 */
@@ -34,6 +31,7 @@ header nav a {
     max-width: 1440px;
 }
 
+/* 슬라이더 스타일 시작 */
 .swiper-container {
     height: 500px;
     overflow: hidden;
@@ -43,21 +41,15 @@ header nav a {
 /* 내비게이션 버튼 스타일 수정 */
 .swiper-button-next,
 .swiper-button-prev {
-    /* 배경색 제거 */
     background-color: transparent;
-    /* 버튼 크기 조정 */
     width: auto;
     height: auto;
-    /* 색상 흰색으로 설정 */
     color: #ffffff;
-    /* 폰트 크기 크게 설정 */
     font-size: 50px;
-    /* 정렬 및 배치 */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    /* 커서 포인터 */
     cursor: pointer;
 }
 
@@ -79,18 +71,18 @@ header nav a {
     height: 100%;
     object-fit: cover;
 }
-/* 숫자 페이지네이션 */
-/* 숫자 페이징 스타일 - 상단으로 이동 */
+
+/* 숫자 페이지네이션 스타일 */
 .swiper-pagination {
     display: flex;
-    flex-direction: column; /* 수직 정렬 */
-    justify-content: flex-start; /* 위쪽 정렬 */
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     position: absolute;
-    top: 0; /* 슬라이더 상단에서 5% 위치 */
+    top: 0;
     right: 10px;
-    transform: translateY(0); /* 기존 translateY 제거 */
-    z-index: 20; /* 다른 요소들보다 위에 표시 */
+    transform: translateY(0);
+    z-index: 20;
 }
 
 .swiper-pagination .swiper-pagination-bullet {
@@ -99,30 +91,29 @@ header nav a {
     padding: 5px 10px;
     margin: 5px 0;
     background: none;
-    color: #ffffff; /* 기본 숫자 색상: 흰색 */
+    color: #ffffff;
     border-radius: 9999px;
     font-size: 16px;
     cursor: pointer;
     transition: color 0.3s;
     font-weight: bold;
-
 }
 
 .swiper-pagination .swiper-pagination-bullet-active {
-    color: #871e9b; /* 활성화된 숫자 색상: 보라색 */
+    color: #871e9b;
     font-weight: bold;
 }
 
 /* 카테고리 버튼 스타일 */
 .category-btn,
 #more-button {
-    padding: 12px 24px; /* 패딩을 늘려 버튼 길이 증가 */
-    background-color: #000000; /* 검은색 배경 */
-    border: 2px solid #871e9b; /* 보라색 테두리 */
-    border-radius: 9999px; /* 모서리를 완전히 둥글게 */
+    padding: 12px 24px;
+    background-color: #000000;
+    border: 2px solid #871e9b;
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 16px;
-    color: #ffffff; /* 흰색 텍스트 */
+    color: #ffffff;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -132,8 +123,8 @@ header nav a {
 .category-btn.active,
 #more-button:hover,
 #more-button:focus {
-    background-color: #871e9b; /* 보라색 배경 */
-    color: #ffffff; /* 흰색 텍스트 */
+    background-color: #871e9b;
+    color: #ffffff;
 }
 
 /* 햄버거 메뉴 스타일 */
@@ -145,9 +136,9 @@ header nav a {
 
 /* 드롭다운 메뉴 스타일 */
 .dropdown-menu {
-    display: none; /* 기본적으로 숨김 */
+    display: none;
     position: absolute;
-    top: 80px; /* 헤더 높이와 일치 */
+    top: 80px;
     left: 0;
     right: 0;
     background-color: #000000;
@@ -166,26 +157,26 @@ header nav a {
 }
 
 .dropdown-menu a:hover {
-    color: #871e9b; /* 보라색 텍스트 */
+    color: #871e9b;
 }
 
 /* 반응형 디자인: 모바일에서 햄버거 메뉴 보이기 */
 @media (max-width: 768px) {
     .navigation {
-        display: none; /* 모바일에서는 네비게이션 숨김 */
+        display: none;
     }
     .hamburger {
-        display: block; /* 모바일에서 햄버거 메뉴 보이기 */
+        display: block;
     }
 }
 
 /* 네비게이션 링크 스타일 */
 .navigation a {
-    background-color: #000000; /* 검은색 배경 */
-    color: #ffffff; /* 흰색 텍스트 */
+    background-color: #000000;
+    color: #ffffff;
     padding: 12px 24px;
-    border: none; /* 테두리 제거 */
-    border-radius: 9999px; /* 모서리를 완전히 둥글게 */
+    border: none;
+    border-radius: 9999px;
     text-decoration: none;
     font-size: 16px;
     transition: background-color 0.3s, color 0.3s;
@@ -193,9 +184,10 @@ header nav a {
 
 /* 네비게이션 링크 호버 효과 */
 .navigation a:hover {
-    background-color: #871e9b; /* 보라색 배경 */
-    color: #ffffff; /* 흰색 텍스트 */
+    background-color: #871e9b;
+    color: #ffffff;
 }
+
 /* 운동 아이템의 크기 고정 */
 .exercise-item {
     width: 360px;
@@ -205,6 +197,159 @@ header nav a {
 /* 운동 이미지의 크기 고정 */
 .exercise-item img {
     width: 100%;
-    height: 300px; /* 이미지 높이를 300px로 설정 */
+    height: 300px;
     object-fit: cover;
+}
+
+/* 추가된 컨텐츠 스타일 시작 */
+
+/* 컨텐츠 영역 스타일 */
+.content {
+    width: 100%;
+    margin-top: 50px;
+}
+
+/* 첫 번째 섹션 스타일 */
+.content-one {
+    display: flex;
+    width: 100%;
+}
+
+.content-first-title {
+    width: 40%;
+    font-size: 15px;
+    text-align: center;
+}
+
+.content-first-imgbox {
+    width: 30%;
+    height: 300px;
+    margin-left: 200px;
+}
+
+.content-first-img2 {
+    position: absolute;
+    left: 750px;
+    top: 100px;
+    z-index: 2;
+}
+
+.content-first-img3 {
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 1000px;
+}
+
+/* 두 번째 섹션 스타일 */
+.content-two {
+    width: 100%;
+    display: flex;
+}
+
+.content-left {
+    width: 50%;
+    height: 1500px;
+    display: flex;
+    flex-direction: column;
+    border-right: solid 3px white;
+}
+
+.content-right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-two-img {
+    width: 400px;
+    margin-left: 150px;
+    margin-bottom: 500px;
+}
+
+.content-two-right-img {
+    width: 400px;
+    margin-top: 250px;
+    margin-left: 170px;
+    margin-bottom: 400px;
+}
+
+/* 세 번째 섹션 스타일 */
+.content-three {
+    width: 100%;
+    height: 400px;
+    display: flex;
+}
+
+.content-three-left,
+.content-three-right {
+    width: 50%;
+    height: 400px;
+}
+
+/* 왼쪽 섹션 스타일 */
+.content-three-left {
+    border: solid 1px black;
+}
+
+.content-three-left-title {
+    text-align: center;
+    height: 100px;
+}
+
+.content-three-arrow {
+    width: 100%;
+    height: 70px;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.content-three-arrow img {
+    width: 50px;
+}
+
+.content-three-left-arrow {
+    margin-right: 20px;
+}
+
+.content-three-right-arrow {
+    margin-left: 20px;
+}
+
+/* 이미지 공통 스타일 적용 */
+.content-three-left-img img,
+.content-three-right-img img {
+    width: 50%;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 auto; /* 이미지 중앙 정렬 */
+}
+
+/* 오른쪽 섹션 스타일 */
+.content-three-right-img {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.content-three-right-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 50px;
+}
+
+/* 추가된 컨텐츠 스타일 끝 */
+
+/* 글꼴 설정 */
+@layer utilities {
+    .font-anton {
+        font-family: 'Anton', sans-serif;
+    }
+}
+
+/* span 요소에만 굵은 글씨 적용 */
+.swiper-pagination-bullet {
+    font-weight: 800;
 }

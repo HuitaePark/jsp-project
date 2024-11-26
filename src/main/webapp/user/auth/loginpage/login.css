@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+ 	body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .login-container {
+            width: 400px;
+            margin: 100px auto;
+
+        }
+        .login-container h2 {
+        	font-size: 25px;
+            margin-bottom: 20px;
+      
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px; 
+            margin-bottom: 10px;
+            background: #000;
+            border: none;
+            border-bottom: 1px solid #fff;
+            color: #fff;
+        }
+        
+        .login-search {
+        	width: 100%;
+        	text-align: left;	
+        }
+        
+        .login-buttons{
+        	margin-top: 30px;
+        }
+        .login-buttons button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #fff;
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+        .login-buttons button:nth-child(2) {
+            background: #fff;
+            color: #000;
+        }
+          .sns-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+           
+        }
+        .sns-login::before,
+        .sns-login::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ffffff; /* 선의 색상 지정 */
+            margin: 0 10px;
+        }
+        
+ 		.sns-login-icons{
+ 		  display: flex;
+ 		  justify-content: space-between;
+ 		}
+        
+        .sns-login-icons img {
+            width: 60px;
+            height: 60px;
+            margin: 20px;
+            cursor: pointer;
+           
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+        }
