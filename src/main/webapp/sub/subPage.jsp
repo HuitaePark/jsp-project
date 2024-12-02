@@ -1,4 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.heetae.jspproject.sub.ReviewDTO" %>
+<%@ page import="com.heetae.jspproject.sub.ReviewDAO" %>
+<%@ page import="com.heetae.jspproject.login.loginDTO" %>
+<%
+    // 리뷰 목록을 가져옵니다.
+    ReviewDAO reviewDAO = new ReviewDAO();
+    loginDTO user = (loginDTO) session.getAttribute("loginInfo");
+    String memberId = null;
+    if (user != null) {
+        memberId = user.getUsername();
+    }
+    List<ReviewDTO> reviews = reviewDAO.getReviews(memberId);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,71 +57,7 @@
         .max-w-custom {
             max-width: 1440px;
         }
-        /* 슬라이더 스타일 시작 */
-        .swiper-container {
-            height: 500px;
-            overflow: hidden;
-            position: relative;
-        }
-        /* 내비게이션 버튼 스타일 수정 */
-        .swiper-button-next,
-        .swiper-button-prev {
-            background-color: transparent;
-            width: auto;
-            height: auto;
-            color: #ffffff;
-            font-size: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            cursor: pointer;
-        }
-        .swiper-button-next {
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-        }
-        .swiper-button-prev {
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-        }
-        /* 슬라이더 슬라이드 이미지 스타일 */
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        /* 숫자 페이지네이션 스타일 */
-        .swiper-pagination {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            right: 10px;
-            transform: translateY(0);
-            z-index: 20;
-        }
-        .swiper-pagination .swiper-pagination-bullet {
-            width: auto;
-            height: auto;
-            padding: 5px 10px;
-            margin: 5px 0;
-            background: none;
-            color: #ffffff;
-            border-radius: 9999px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: color 0.3s;
-            font-weight: bold;
-        }
-        .swiper-pagination .swiper-pagination-bullet-active {
-            color: #871e9b;
-            font-weight: bold;
-        }
+
         /* 햄버거 메뉴 스타일 */
         .hamburger {
             cursor: pointer;
@@ -174,6 +124,13 @@
             border: 1px solid #ffffff; /* 흰색 테두리 */
             padding: 16px;
         }
+        .exercise-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 박스를 채우도록 이미지 조정 */
+        }
+
+
     </style>
     <script type="text/javascript">
         var contextPath = '<%= request.getContextPath() %>';
@@ -205,27 +162,15 @@
 </header>
 <!-- 헤더 끝 -->
 
-<!-- 슬라이더 시작 -->
-<div class="swiper-container w-full max-w-custom mx-auto mt-20">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="<%= request.getContextPath() %>/images/new-image1.png" alt="새 이미지 1" class="w-full h-full object-cover">
-        </div>
-        <div class="swiper-slide">
-            <img src="<%= request.getContextPath() %>/images/new-image2.png" alt="새 이미지 2" class="w-full h-full object-cover">
-        </div>
-        <div class="swiper-slide">
-            <img src="<%= request.getContextPath() %>/images/new-image3.png" alt="새 이미지 3" class="w-full h-full object-cover">
-        </div>
-        <!-- 추가 슬라이드 -->
+<!-- 이미지 시작 -->
+<div class="w-full max-w-custom mx-auto mt-20 relative" style="height: 500px; overflow: hidden;">
+    <img src="<%= request.getContextPath() %>/sub/image/best-back-machines-in-the-gym.webp" alt="새 이미지" class="w-full h-full object-cover">
+    <!-- BACK 텍스트 추가 -->
+    <div class="absolute top-0 left-0 m-4">
+        <h1 class="text-white font-bold text-6xl">BACK</h1>
     </div>
-    <!-- 내비게이션 버튼 -->
-    <button class="swiper-button-prev" aria-label="이전 슬라이드"></button>
-    <button class="swiper-button-next" aria-label="다음 슬라이드"></button>
-    <!-- 페이지네이션 -->
-    <div class="swiper-pagination"></div>
 </div>
-<!-- 슬라이더 끝 -->
+<!-- 이미지 끝 -->
 
 <!-- 콘텐츠 섹션 시작 -->
 <div class="content-section w-full max-w-custom mx-auto mt-8">
@@ -233,14 +178,14 @@
         <!-- 왼쪽 컬럼 -->
         <div class="col-span-5 flex flex-col space-y-4">
             <!-- 운동 이미지 박스 -->
-            <div class="exercise-image-box box flex items-center justify-center" style="height: 300px;">
+            <div class="exercise-image-box box flex items-center justify-center" style="height: 300px; overflow: hidden;">
                 <!-- 운동 이미지 삽입 -->
-                <img src="<%= request.getContextPath() %>/images/exercise-image.png" alt="운동 이미지" class="w-full h-full object-cover">
+                <img src="<%= request.getContextPath() %>/sub/image/img.png" alt="운동 이미지" class="object-fit-contain w-full h-full">
             </div>
             <!-- 운동 설명 박스 -->
             <div class="exercise-description-box box text-white" style="height: 400px;">
                 <!-- 운동 설명 삽입 -->
-                <p>운동 설명이 여기에 들어갑니다.</p>
+                <p>스쿼트는 주로 하체 근육을 강화하는 운동으로 알려져 있지만, 사실 등 근육에도 일정한 자극을 준다. 스쿼트를 수행할 때 상체를 곧게 세우고 바벨을 안정적으로 지탱하기 위해 등 근육, 특히 척추기립근과 승모근이 활성화된다. 이는 단순히 하체뿐만 아니라 전신의 균형과 근육 협응을 개선하는 데도 도움을 준다. 따라서 스쿼트는 하체 운동일 뿐 아니라, 등 근육 강화에도 기여할 수 있는 다목적 운동이라 할 수 있다.</p>
             </div>
         </div>
         <!-- 오른쪽 컬럼 -->
@@ -248,12 +193,28 @@
             <!-- 유튜브 콘텐츠 박스 -->
             <div class="youtube-content-box box" style="height: 400px;">
                 <!-- 유튜브 콘텐츠 삽입 -->
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/영상_ID" frameborder="0" allowfullscreen></iframe>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NUfroxwfFJU?si=OmFGN5LC8eBht_hT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <!-- 차트 박스 -->
-            <div class="chart-box box text-white" style="height: 300px;">
-                <!-- Chart.js 오각형 차트 삽입 -->
-                <canvas id="pentagonChart" width="400" height="300"></canvas>
+            <div class="chart-box box text-white" style="height: 300px; display: flex;">
+                <!-- 차트 영역 -->
+                <div style="flex: 1;">
+                    <!-- Chart.js 오각형 차트 삽입 -->
+                    <canvas id="pentagonChart" width="400" height="300"></canvas>
+                </div>
+                <!-- 평가 항목 문구 -->
+                <div style="flex: 1; padding-left: 20px;">
+                    <ul>
+                        <li><strong>펌핑감</strong>: 목표 부위에 얼마나 타격을 잘 주는지</li>
+                        <li><strong>난이도</strong>: 동작이 얼마나 쉬운지</li>
+                        <li><strong>희소성</strong>: 헬스장에 얼마나 비치되어 있는지</li>
+                        <li><strong>안정성</strong>: 수행하다 부상을 입을 확률이 얼마나 되는지</li>
+                        <li><strong>무게감</strong>: 얼만큼의 무게로 수행하면 좋은지</li>
+                        <br>
+                        <br>
+                        <button style="background-color: #871e9b;" class="text-white py-2 px-6">나도 평가하러 가기</button>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -262,64 +223,34 @@
 <!-- 유저 한줄평 섹션 시작 -->
 <div class="review-section w-full max-w-custom mx-auto mt-8 box border border-white">
     <div class="p-4">
-        <a href="#" class="text-blue-400 text-lg font-bold">전체 운동 한줄평/추천 보기</a>
+        <a href="#" class="text-blue-400 text-lg font-bold">운동 한줄평 보기</a>
         <ul class="mt-4 space-y-4 text-white">
+            <% for (ReviewDTO review : reviews) { %>
             <li class="border-t border-gray-600 pt-4">
-                앞으로 차지만 않으면 대퇴사두에 매우 좋은 운동
+                <%= review.getComment() %>
                 <div class="flex justify-end mt-2 space-x-4">
+                    <!-- 좋아요 버튼 -->
                     <div class="flex items-center space-x-2">
-                        <button class="text-white">👍</button>
-                        <span>20</span>
+                        <form action="<%= request.getContextPath() %>/likeReview" method="post" style="display:inline;">
+                            <input type="hidden" name="review_id" value="<%= review.getReviewId() %>">
+                            <input type="hidden" name="action" value="like">
+                            <button type="submit" class="text-white <% if (review.isUserLiked()) { %>liked<% } %>">👍</button>
+                        </form>
+                        <span><%= review.getLikeCount() %></span>
                     </div>
+                    <!-- 싫어요 버튼 -->
                     <div class="flex items-center space-x-2">
-                        <button class="text-white">👎</button>
-                        <span>20</span>
+                        <form action="<%= request.getContextPath() %>/likeReview" method="post" style="display:inline;">
+                            <input type="hidden" name="review_id" value="<%= review.getReviewId() %>">
+                            <input type="hidden" name="action" value="dislike">
+                            <button type="submit" class="text-white <% if (review.isUserDisliked()) { %>disliked<% } %>">👎</button>
+                        </form>
+                        <span><%= review.getDislikeCount() %></span>
                     </div>
                 </div>
             </li>
-            <li class="border-t border-gray-600 pt-4">
-                여러분 무릎 조심하세요 ㅠㅠ
-                <div class="flex justify-end mt-2 space-x-4">
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👍</button>
-                        <span>20</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👎</button>
-                        <span>20</span>
-                    </div>
-                </div>
-            </li>
-            <li class="border-t border-gray-600 pt-4">
-                대체 이거 무게 어깨 올리는거임 ;;
-                <div class="flex justify-end mt-2 space-x-4">
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👍</button>
-                        <span>20</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👎</button>
-                        <span>20</span>
-                    </div>
-                </div>
-            </li>
-            <li class="border-t border-gray-600 pt-4">
-                박재훈식으로 하니까 자극 지림
-                <div class="flex justify-end mt-2 space-x-4">
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👍</button>
-                        <span>20</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button class="text-white">👎</button>
-                        <span>20</span>
-                    </div>
-                </div>
-            </li>
+            <% } %>
         </ul>
-        <div class="mt-4 text-center">
-            <button class="bg-purple-600 text-white py-2 px-6 rounded-full">한줄평 입력</button>
-        </div>
     </div>
 </div>
 <!-- 유저 한줄평 섹션 끝 -->
@@ -341,30 +272,34 @@
 <!-- 두 개의 세로 섹션 시작 -->
 <div class="w-full max-w-custom mx-auto mt-8 grid grid-cols-12 gap-4">
     <!-- 왼쪽 섹션 -->
-    <div class="col-span-6 box border border-white p-4" style="height: 700px;">
-        <h3 class="text-purple-500 text-lg font-bold mb-4 text-center">이 운동은 어떠세요?</h3>
+    <div class="col-span-6 box border border-white p-4" style="height: 700px; overflow: auto;">
+        <h3 style="color: #871e9b;" class="text-lg font-bold mb-4 text-center">이 운동은 어떠세요?</h3>
         <div class="grid grid-cols-2 gap-4">
+            <!-- 첫 번째 이미지 박스 -->
             <div class="flex flex-col items-center justify-center border border-white p-2">
-                <img src="<%= request.getContextPath() %>/images/exercise1.png" alt="운동 이미지 1" class="w-full h-auto">
+                <img src="<%= request.getContextPath() %>/sub/image/img.png" alt="운동 이미지 1" class="max-w-48 max-h-48 object-cover">
                 <p class="text-center mt-2 text-white">레그익스텐션</p>
             </div>
+            <!-- 두 번째 이미지 박스 -->
             <div class="flex flex-col items-center justify-center border border-white p-2">
-                <img src="<%= request.getContextPath() %>/images/exercise1.png" alt="운동 이미지 2" class="w-full h-auto">
+                <img src="<%= request.getContextPath() %>/sub/image/img.png" alt="운동 이미지 2" class="max-w-48 max-h-48 object-cover">
                 <p class="text-center mt-2 text-white">레그익스텐션</p>
             </div>
+            <!-- 세 번째 이미지 박스 -->
             <div class="flex flex-col items-center justify-center border border-white p-2">
-                <img src="<%= request.getContextPath() %>/images/exercise1.png" alt="운동 이미지 3" class="w-full h-auto">
+                <img src="<%= request.getContextPath() %>/sub/image/img.png" alt="운동 이미지 3" class="max-w-48 max-h-48 object-cover">
                 <p class="text-center mt-2 text-white">레그익스텐션</p>
             </div>
+            <!-- 네 번째 이미지 박스 -->
             <div class="flex flex-col items-center justify-center border border-white p-2">
-                <img src="<%= request.getContextPath() %>/images/exercise1.png" alt="운동 이미지 4" class="w-full h-auto">
+                <img src="<%= request.getContextPath() %>/sub/image/img.png" alt="운동 이미지 4" class="max-w-48 max-h-48 object-cover">
                 <p class="text-center mt-2 text-white">레그익스텐션</p>
             </div>
         </div>
     </div>
     <!-- 오른쪽 섹션 -->
     <div class="col-span-6 box border border-white p-4" style="height: 700px;">
-        <h3 class="text-purple-500 text-lg font-bold mb-4 text-center">관련 상품 추천</h3>
+        <h3 style="color: #871e9b;" class="text-lg font-bold mb-4 text-center">관련 상품 추천</h3>
         <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
                 <div class="w-full h-40 bg-gray-400"></div> <!-- 상품 이미지 자리 -->
@@ -389,32 +324,9 @@
 <!-- 푸터 포함 -->
 <%@ include file="../footer.jsp" %>
 
-<!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- 슬라이더 초기화 -->
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        direction: 'vertical',
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-            renderBullet: function (index, className) {
-                return '<span class="' + className + '">' + (index + 1) + '</span>';
-            },
-        },
-    });
-</script>
+
 <!-- 햄버거 메뉴 스크립트 -->
 <script>
     const hamburger = document.getElementById('hamburger');
@@ -429,7 +341,7 @@
 <script>
     // 차트 데이터를 정의합니다.
     const data = {
-        labels: ['힘', '속도', '민첩성', '지구력', '유연성'],
+        labels: ['펌핑감', '난이도', '희소성', '안전성', '무게'],
         datasets: [{
             label: '운동 메트릭스',
             data: [80, 90, 70, 85, 75], // 실제 데이터로 교체하세요.

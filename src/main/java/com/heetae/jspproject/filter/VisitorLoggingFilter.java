@@ -1,4 +1,4 @@
-package com.heetae.jspproject.admin.filter;
+package com.heetae.jspproject.filter;
 
 import com.heetae.jspproject.admin.util.DatabaseUtil;
 

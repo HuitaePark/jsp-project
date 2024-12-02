@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>대시보드</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="user.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}../usernavbar/usernavbar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}user.css" rel="stylesheet">
     <style>
         .dashboard {
             display: flex;
@@ -37,7 +37,7 @@
 <div class="user">
 <!-- 네비게이션 바 포함 -->
 <jsp:include page="/user/admin/adminNavbar/usernavbar.jsp" />
-
+    <div class="user-section">
 <%
     DashboardDTO data = (DashboardDTO) request.getAttribute("dashboardData");
 %>
@@ -56,6 +56,7 @@
         <p><%= data.getReviewCount() %></p>
     </div>
 </div>
+    </div>
 </div>
 </body>
 </html>

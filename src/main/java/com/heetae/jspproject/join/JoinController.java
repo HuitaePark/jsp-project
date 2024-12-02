@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import com.heetae.jspproject.join.joinDAO;
 import com.heetae.jspproject.join.joinDTO;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/joinpage")
 
@@ -37,7 +38,6 @@ public class JoinController extends HttpServlet {
        
         joinDAO userDAO = new joinDAO();
         int result = userDAO.registerUser(user);
-
 
 
         if (result > 0) {

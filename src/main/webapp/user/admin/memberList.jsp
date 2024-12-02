@@ -7,14 +7,14 @@
     <meta charset="UTF-8">
     <title>회원 정보 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="user.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}../usernavbar/usernavbar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}user.css" rel="stylesheet">
 
 </head>
 <body>
 <div class="user">
 <jsp:include page="/user/admin/adminNavbar/usernavbar.jsp" />
-
+    <div class="user-section">
 <div class="container mx-auto mt-10">
     <h1 class="text-2xl font-bold mb-5">회원 정보 목록</h1>
     <table class="min-w-full bg-white">
@@ -51,6 +51,7 @@
         </tbody>
     </table>
 </div>
+        </div>
 </div>
 </body>
 </html>

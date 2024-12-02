@@ -22,10 +22,6 @@ public class MemberDAO {
                 member.setEmail(rs.getString("email"));
                 member.setAddress(rs.getString("address"));
                 member.setPhoneNumber(rs.getString("phone_number"));
-                member.setHeight(rs.getBigDecimal("height"));
-                member.setWeight(rs.getBigDecimal("weight"));
-                member.setGender(rs.getString("gender"));
-                member.setAge(rs.getInt("age"));
                 member.setCreatedAt(rs.getTimestamp("created_at"));
                 memberList.add(member);
             }
