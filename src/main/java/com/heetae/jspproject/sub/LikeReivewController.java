@@ -1,6 +1,6 @@
 package com.heetae.jspproject.sub;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
+import com.heetae.jspproject.util.DatabaseUtil;
 import com.heetae.jspproject.login.loginDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

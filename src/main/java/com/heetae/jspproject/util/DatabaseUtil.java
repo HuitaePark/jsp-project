@@ -1,4 +1,4 @@
-package com.heetae.jspproject.admin.util;
+package com.heetae.jspproject.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

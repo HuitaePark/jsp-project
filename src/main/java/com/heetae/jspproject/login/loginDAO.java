@@ -1,6 +1,6 @@
 package com.heetae.jspproject.login;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
+import com.heetae.jspproject.util.DatabaseUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

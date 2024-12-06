@@ -301,21 +301,29 @@
     <div class="col-span-6 box border border-white p-4" style="height: 700px;">
         <h3 style="color: #871e9b;" class="text-lg font-bold mb-4 text-center">관련 상품 추천</h3>
         <div class="grid grid-cols-2 gap-4">
+            <!-- 첫 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <div class="w-full h-40 bg-gray-400"></div> <!-- 상품 이미지 자리 -->
+                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 1 설명" class="w-full h-40 object-cover">
+                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
             </div>
+            <!-- 두 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <div class="w-full h-40 bg-gray-400"></div> <!-- 상품 이미지 자리 -->
+                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 2 설명" class="w-full h-40 object-cover">
+                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
             </div>
+            <!-- 세 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <div class="w-full h-40 bg-gray-400"></div> <!-- 상품 이미지 자리 -->
+                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 3 설명" class="w-full h-40 object-cover">
+                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
             </div>
+            <!-- 네 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <div class="w-full h-40 bg-gray-400"></div> <!-- 상품 이미지 자리 -->
+                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 4 설명" class="w-full h-40 object-cover">
+                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
             </div>
         </div>
         <div class="text-center mt-4">
-            <button class="bg-purple-600 text-white py-2 px-6 rounded-full">스토어 더보기</button>
+            <button style="background-color: #871e9b;" class="text-white py-2 px-6">스토어 더보기</button>
         </div>
     </div>
 </div>

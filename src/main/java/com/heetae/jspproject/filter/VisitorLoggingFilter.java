@@ -1,6 +1,6 @@
 package com.heetae.jspproject.filter;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
+import com.heetae.jspproject.util.DatabaseUtil;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

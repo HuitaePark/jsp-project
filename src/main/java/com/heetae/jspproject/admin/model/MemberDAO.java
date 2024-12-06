@@ -1,6 +1,6 @@
 package com.heetae.jspproject.admin.model;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
+import com.heetae.jspproject.util.DatabaseUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ public class MemberDAO {
         String sql = "SELECT * FROM members";
 
         try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 MemberDTO member = new MemberDTO();

@@ -1,7 +1,6 @@
 package com.heetae.jspproject.join;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
-import com.heetae.jspproject.join.joinDTO;
+import com.heetae.jspproject.util.DatabaseUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

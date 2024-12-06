@@ -25,10 +25,6 @@
             <th class="py-2 px-4 border-b">이메일</th>
             <th class="py-2 px-4 border-b">전화번호</th>
             <th class="py-2 px-4 border-b">주소</th>
-            <th class="py-2 px-4 border-b">성별</th>
-            <th class="py-2 px-4 border-b">나이</th>
-            <th class="py-2 px-4 border-b">키</th>
-            <th class="py-2 px-4 border-b">몸무게</th>
         </tr>
         </thead>
         <tbody>
@@ -42,10 +38,6 @@
             <td class="py-2 px-4 border-b"><%= member.getEmail() %></td>
             <td class="py-2 px-4 border-b"><%= member.getPhoneNumber() %></td>
             <td class="py-2 px-4 border-b"><%= member.getAddress() %></td>
-            <td class="py-2 px-4 border-b"><%= member.getGender() %></td>
-            <td class="py-2 px-4 border-b"><%= member.getAge() %></td>
-            <td class="py-2 px-4 border-b"><%= member.getHeight() %> cm</td>
-            <td class="py-2 px-4 border-b"><%= member.getWeight() %> kg</td>
         </tr>
         <% } %>
         </tbody>

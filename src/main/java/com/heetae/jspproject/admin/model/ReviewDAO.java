@@ -1,6 +1,6 @@
 package com.heetae.jspproject.admin.model;
 
-import com.heetae.jspproject.admin.util.DatabaseUtil;
+import com.heetae.jspproject.util.DatabaseUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
