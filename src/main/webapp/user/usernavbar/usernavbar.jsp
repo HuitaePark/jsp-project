@@ -29,11 +29,7 @@
         <li class="navbar-item">
              <img src="${pageContext.request.contextPath}/user/auth/image/icon/dashboard.png" alt="대시보드 아이콘" class="icon">
             <span>대시보드</span>
-        </li>
-          <li class="navbar-item">
-             <img src="${pageContext.request.contextPath}/user/auth/image/icon/food.png" alt="식단관리 아이콘" class="icon">
-            <span>식단관리</span>
-        </li>
+
           <li class="navbar-item">
              <img src="${pageContext.request.contextPath}/user/auth/image/icon/profile.png" alt="로그아웃 아이콘" class="icon">
             <span>로그아웃</span>

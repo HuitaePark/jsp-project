@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ page import="com.heetae.jspproject.admin.model.DashboardDTO" %>
+<%@ page import="com.jspproject.admin.model.DashboardDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>대시보드</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}../usernavbar/usernavbar.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}user.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/user/admin/adminNavbar/usernavbar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/user/admin/user.css" rel="stylesheet">
     <style>
+        body{
+            color:black ;
+        }
         .dashboard {
             display: flex;
             justify-content: space-around;
