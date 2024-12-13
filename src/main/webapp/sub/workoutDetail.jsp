@@ -5,21 +5,21 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.jspproject.sub.*" %>
 <%
-    // 요청에서 workoutId 파라미터를 가져옵니다.
-//    String workoutIdParam = request.getParameter("workoutId");
-      int workoutId = 1;
-//    if (workoutIdParam != null) {
-//        try {
-//            workoutId = Integer.parseInt(workoutIdParam);
-//        } catch (NumberFormatException e) {
-//            out.println("<h2>잘못된 workoutId 값입니다.</h2>");
-//            e.printStackTrace();
-//            return;
-//        }
-//    } else {
-//        out.println("<h2>workoutId 파라미터가 없습니다.</h2>");
-//        return;
-//    }
+
+    String workoutIdParam = request.getParameter("workoutId");
+    int workoutId = 0;
+    if (workoutIdParam != null) {
+        try {
+            workoutId = Integer.parseInt(workoutIdParam);
+        } catch (NumberFormatException e) {
+            out.println("<h2>잘못된 workoutId 값입니다.</h2>");
+            e.printStackTrace();
+            return;
+        }
+    } else {
+        out.println("<h2>workoutId 파라미터가 없습니다.</h2>");
+       return;
+   }
 
     // Workout 정보를 가져옵니다.
     WorkoutDAO workoutDAO = new WorkoutDAO();
@@ -89,16 +89,6 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css">
     <!-- contextPath를 JavaScript에서 사용하기 위한 변수 선언 -->
     <style>
-        /* 사용자 정의 CSS 파일 */
-        .swiper-pagination-vertical.swiper-pagination-bullets,
-        .swiper-vertical > .swiper-pagination-bullets {
-            top: 20%; /* 원하는 값으로 변경 */
-            transform: translate3d(0, -50%, 0);
-        }
-        /* span 요소에만 굵은 글씨 적용 */
-        .swiper-pagination-bullet {
-            font-weight: 800;
-        }
         /* 전체 배경과 텍스트 색상 설정 */
         body {
             background-color: #000000; /* 검은색 배경 */
@@ -212,8 +202,7 @@
     <div class="dropdown-menu flex flex-col items-center" id="dropdown-menu">
         <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
         <a href="<%= request.getContextPath() %>/workouts.jsp">운동정보</a>
-        <a href="<%= request.getContextPath() %>/board.jsp">게시판</a>
-        <a href="<%= request.getContextPath() %>/shop.jsp">쇼핑몰</a>
+        <a href="<%= request.getContextPath() %>/board.jsp">내정보</a>
         <a href="<%= request.getContextPath() %>/login.jsp">로그인</a>
     </div>
 </header>
@@ -237,7 +226,7 @@
             <!-- 운동 이미지 박스 -->
             <div class="exercise-image-box box flex items-center justify-center" style="height: 300px; overflow: hidden;">
                 <!-- 운동 이미지 삽입 -->
-                <img src="<%= workout.getWorkoutImage() %>" alt="운동 이미지" class="object-fit-contain w-full h-full">
+                <img src="<%= request.getContextPath() + workout.getWorkoutImage() %>" alt="운동 이미지" class="object-fit-contain w-full h-full">
             </div>
             <!-- 운동 설명 박스 -->
             <div class="exercise-description-box box text-white" style="height: 400px;">
@@ -341,7 +330,7 @@
 
                                     <div class="flex justify-end space-x-2">
                                         <button type="button" class="bg-gray-500 text-white py-1 px-3 rounded" id="closeModalBtn">취소</button>
-                                        <button type="submit" class="bg-purple-700 text-white py-1 px-3 rounded">제출</button>
+                                        <button type="submit" style="background-color: #871e9b;" class="text-white py-1 px-3 rounded">제출</button>
                                     </div>
                                 </form>
                             </div>
@@ -419,12 +408,17 @@
                 for (WorkoutDTO otherWorkout : otherWorkouts) {
             %>
             <div class="flex flex-col items-center justify-center border border-white p-2">
-                <a href="<%= request.getContextPath() %>/workoutDetail.jsp?workoutId=<%= otherWorkout.getWorkoutId() %>">
-                    <img src="<%= otherWorkout.getWorkoutImage() %>" alt="<%= otherWorkout.getWorkoutName() %> 이미지" class="max-w-48 max-h-48 object-cover">
+                <a href="<%= request.getContextPath() %>/sub/workoutDetail.jsp?workoutId=<%= otherWorkout.getWorkoutId() %>">
+                    <img src="<%= request.getContextPath() + otherWorkout.getWorkoutImage() %>" alt="<%= otherWorkout.getWorkoutName() %> 이미지" class="max-w-48 max-h-48 object-cover">
                     <p class="text-center mt-2 text-white"><%= otherWorkout.getWorkoutName() %></p>
                 </a>
             </div>
             <% } %>
+        </div>
+        <br>
+        <br>
+        <div class="text-center">
+            <button style="background-color: #871e9b;" class="text-white py-2 px-6 rounded">다른 운동 보기</button>
         </div>
     </div>
     <!-- 오른쪽 섹션 -->
@@ -433,23 +427,23 @@
         <div class="grid grid-cols-2 gap-4">
             <!-- 첫 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 1 설명" class="w-full h-40 object-cover">
-                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
+                <img src="${pageContext.request.contextPath}/sub/image/10mm.jpg" alt="상품 1 설명" class="w-full h-60 object-cover">
+                <a href="https://sbdapparel.kr/product/sbd-10mm-%EB%A0%88%EB%B2%84-%EB%B2%A8%ED%8A%B8/158/category/29/display/1/"><h4 class="mt-2 text-center text-black">SBD 10mm 레버벨트</h4></a>
             </div>
             <!-- 두 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 2 설명" class="w-full h-40 object-cover">
-                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
+                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 2 설명" class="w-full h-60 object-cover">
+                <a href="https://sbdapparel.kr/product/sbd-13mm-%EB%A0%88%EB%B2%84-%EB%B2%A8%ED%8A%B8/157/category/29/display/1/"><h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4></a>
             </div>
             <!-- 세 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 3 설명" class="w-full h-40 object-cover">
-                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
+                <img src="${pageContext.request.contextPath}/sub/image/versa.png" alt="상품 3 설명" class="w-full h-60 object-cover">
+                <a href ="https://www.undongs.com/m/product.html?branduid=1127009&xcode=024&mcode=005&scode=&type=X&sort=manual&cur_code=024005&search=&GfDT=bm16W1w%3D"><h4 class="mt-2 text-center text-black">베르사 그립 프로</h4></a>
             </div>
             <!-- 네 번째 상품 -->
             <div class="flex flex-col items-center justify-center border border-white p-2 bg-gray-200">
-                <img src="${pageContext.request.contextPath}/sub/image/img_1.png" alt="상품 4 설명" class="w-full h-40 object-cover">
-                <h4 class="mt-2 text-center text-black">SBD 13mm 레버벨트</h4>
+                <img src="${pageContext.request.contextPath}/sub/image/nee.png" alt="상품 4 설명" class="w-full h-60 object-cover">
+                <a href="https://sbdapparel.kr/product/sbd-%EB%8B%88%EC%8A%AC%EB%A6%AC%EB%B8%8C-st-7mm-%EB%AC%B4%EB%A6%8E%EB%B3%B4%ED%98%B8%EB%8C%80-%EC%8A%A4%ED%83%A0%EB%8B%A4%EB%93%9C/153/category/30/display/1/"><h4 class="mt-2 text-center text-black">SBD 니슬리브</h4></a>
             </div>
         </div>
     </div>

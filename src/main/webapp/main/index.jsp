@@ -49,8 +49,7 @@
         <nav class="navigation flex space-x-4 justify-end">
             <a href="#">Home</a>
             <a href="#">운동정보</a>
-            <a href="#">게시판</a>
-            <a href="#">쇼핑몰</a>
+            <a href="#">내정보</a>
             <a href="#" style="border-radius: 0; background-color: #871e9b;">로그인</a>
         </nav>
     </div>
@@ -58,8 +57,7 @@
     <div class="dropdown-menu flex flex-col items-center" id="dropdown-menu">
         <a href="#">Home</a>
         <a href="#">운동정보</a>
-        <a href="#">게시판</a>
-        <a href="#">쇼핑몰</a>
+        <a href="#">내정보</a>
         <a href="#">로그인</a>
     </div>
 </header>

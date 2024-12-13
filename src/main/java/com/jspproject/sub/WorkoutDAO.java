@@ -25,8 +25,8 @@ public class WorkoutDAO {
                 workout.setWorkoutName(rs.getString("workout_name"));
                 workout.setWorkoutImage(rs.getString("workout_image"));
                 workout.setWorkoutDescription(rs.getString("workout_description"));
-                workout.setTargetArea(rs.getString("target_area"));
                 workout.setRating(rs.getDouble("rating"));
+                workout.setTargetArea(rs.getInt("target_area"));
                 // 필요에 따라 추가 컬럼 설정
             }
         }
@@ -50,8 +50,8 @@ public class WorkoutDAO {
                 workout.setWorkoutName(rs.getString("workout_name"));
                 workout.setWorkoutImage(rs.getString("workout_image"));
                 workout.setWorkoutDescription(rs.getString("workout_description"));
-                workout.setTargetArea(rs.getString("target_area"));
                 workout.setRating(rs.getDouble("rating"));
+                workout.setTargetArea(rs.getInt("target_area"));
                 // 필요에 따라 추가 컬럼 설정
 
                 workouts.add(workout);
@@ -74,8 +74,8 @@ public class WorkoutDAO {
                 workout.setWorkoutName(rs.getString("workout_name"));
                 workout.setWorkoutImage(rs.getString("workout_image"));
                 workout.setWorkoutDescription(rs.getString("workout_description"));
-                workout.setTargetArea(rs.getString("target_area"));
                 workout.setRating(rs.getDouble("rating"));
+                workout.setTargetArea(rs.getInt("target_area"));
                 // 필요에 따라 추가 컬럼 설정
 
                 workouts.add(workout);
