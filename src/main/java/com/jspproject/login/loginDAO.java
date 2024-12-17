@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class loginDAO {
 
     public loginDTO validateUser(String id, String password) {
-        String SQL = "SELECT * FROM members WHERE user_id = ? AND password = ?";
+        String SQL = "SELECT * FROM memberTbl WHERE memberid = ? AND password = ?";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -18,7 +18,7 @@ public class loginDAO {
 
             if (rs.next()) {
                 loginDTO user = new loginDTO();
-                user.setUsername(rs.getString("user_id"));
+                user.setUsername(rs.getString("memberid"));
                 user.setPassword(rs.getString("password"));
                 // 필요한 추가 정보 설정 가능
                 return user;

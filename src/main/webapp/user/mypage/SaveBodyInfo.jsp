@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>${message}</h1>
-    <a href="${pageContext.request.contextPath}/user/mypage/BodyInfo.jsp">돌아가기</a>
+    <a href="${pageContext.request.contextPath}/user/mypage/memberInfo.jsp">돌아가기</a>
 </body>
 </html>

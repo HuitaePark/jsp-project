@@ -95,10 +95,7 @@
             color: #ffffff; /* 흰색 텍스트 */
             font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 적용 */
         }
-        /* 헤더 스타일 */
-        header {
-            background-color: #000000; /* 검은색 배경 */
-        }
+
         /* 헤더 내의 모든 텍스트 색상 설정 */
         header nav a {
             color: #ffffff; /* 흰색 텍스트 */
@@ -107,25 +104,7 @@
             max-width: 1440px;
         }
 
-        /* 햄버거 메뉴 스타일 */
-        .hamburger {
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-        }
-        /* 드롭다운 메뉴 스타일 */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background-color: #000000;
-            padding: 20px;
-            flex-direction: column;
-            align-items: center;
-            z-index: 9;
-        }
+
         .dropdown-menu a {
             color: #ffffff;
             padding: 10px 0;
@@ -184,29 +163,7 @@
     </script>
 </head>
 <body class="w-full">
-<!-- 헤더 시작 -->
-<header class="w-full fixed top-0 left-0 z-50" style="height: 80px;">
-    <div class="mx-auto flex items-center justify-between h-full max-w-custom px-4">
-        <!-- 햄버거 메뉴 -->
-        <img src="<%= request.getContextPath() %>/images/hamburger.png" alt="메뉴" class="hamburger" id="hamburger" style="width:30px; height:30px;">
-        <!-- 네비게이션 링크 -->
-        <nav class="navigation flex space-x-4 justify-end">
-            <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
-            <a href="<%= request.getContextPath() %>/workouts.jsp">운동정보</a>
-            <a href="<%= request.getContextPath() %>/board.jsp">게시판</a>
-            <a href="<%= request.getContextPath() %>/shop.jsp">쇼핑몰</a>
-            <a href="<%= request.getContextPath() %>/login.jsp" style="border-radius: 0; background-color: #871e9b;">로그인</a>
-        </nav>
-    </div>
-    <!-- 드롭다운 메뉴 -->
-    <div class="dropdown-menu flex flex-col items-center" id="dropdown-menu">
-        <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
-        <a href="<%= request.getContextPath() %>/workouts.jsp">운동정보</a>
-        <a href="<%= request.getContextPath() %>/board.jsp">내정보</a>
-        <a href="<%= request.getContextPath() %>/login.jsp">로그인</a>
-    </div>
-</header>
-<!-- 헤더 끝 -->
+<jsp:include page="/header.jsp" />
 
 <!-- 운동 상세 이미지 시작 -->
 <div class="w-full max-w-custom mx-auto mt-20 relative" style="height: 500px; overflow: hidden;">
@@ -378,21 +335,6 @@
     </div>
 </div>
 <!-- 유저 한줄평 섹션 끝 -->
-
-<!-- 추천/별로 버튼 섹션 시작 -->
-<div class="recommend-section w-full max-w-custom mx-auto mt-4 flex justify-center space-x-4">
-    <button class="bg-red-500 text-white py-2 px-4 rounded flex items-center space-x-2">
-        <span>👍</span>
-        <span>이 운동 추천!</span>
-        <span>234,567</span>
-    </button>
-    <button class="bg-blue-500 text-white py-2 px-4 rounded flex items-center space-x-2">
-        <span>👎</span>
-        <span>별로에요...</span>
-        <span>234</span>
-    </button>
-</div>
-<!-- 추천/별로 버튼 섹션 끝 -->
 
 <!-- 두 개의 세로 섹션 시작 -->
 <div class="w-full max-w-custom mx-auto mt-8 grid grid-cols-12 gap-4">

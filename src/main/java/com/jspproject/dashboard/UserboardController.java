@@ -38,7 +38,7 @@ public class UserboardController extends HttpServlet {
 
             userBoardDAO.insertBoard(board);
             System.out.println("데이터가 성공적으로 DB에 저장되었습니다.");
-            response.setStatus(HttpServletResponse.SC_CREATED);
+            response.sendRedirect(request.getContextPath() + "/user/mypage/userboard.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 처리 중 오류 발생");

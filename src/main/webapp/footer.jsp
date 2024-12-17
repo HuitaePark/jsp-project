@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="bg-black text-white py-4 px-4 text-center">
   <h2 class="text-lg font-bold">GYM</h2>
-  <p>공지사항 | 공지사항 | 공지사항 | 공지사항</p>
   <div class="text-sm mt-2">
     <p>전화번호: 010-0000-0000</p>
     <p>이메일: dongyang@gmail.com</p>

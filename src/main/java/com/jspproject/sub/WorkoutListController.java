@@ -9,20 +9,22 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+
 @WebServlet("/workouts")
 public class WorkoutListController extends HttpServlet {
     private WorkoutListDAO dao;
 
     @Override
     public void init() {
-       dao = new WorkoutListDAO();
+        dao = new WorkoutListDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String category = request.getParameter("category");
-        int targetArea = 1; // Default category (Arms)
+        String search = request.getParameter("search"); // 검색어 파라미터
+        int targetArea = -1; // 기본값: 전체
 
         if (category != null) {
             switch (category.toLowerCase()) {
@@ -42,13 +44,21 @@ public class WorkoutListController extends HttpServlet {
                     targetArea = 5;
                     break;
                 default:
-                    targetArea = 1;
+                    targetArea = -1; // 유효하지 않은 카테고리일 경우 전체
             }
         }
 
-        List<WorkoutDTO> workouts = dao.getWorkoutsByTargetArea(targetArea);
+        List<WorkoutDTO> workouts;
+
+        if (search != null && !search.trim().isEmpty()) {
+            workouts = dao.getWorkouts(targetArea, search.trim());
+        } else {
+            workouts = dao.getWorkoutsByTargetArea(targetArea);
+        }
+
         request.setAttribute("workouts", workouts);
-        request.setAttribute("selectedCategory", category != null ? category : "arms"); // To highlight active button
+        request.setAttribute("selectedCategory", category != null ? category : "arms"); // 활성화된 카테고리 유지
+        request.setAttribute("search", search != null ? search : ""); // 검색어 유지
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/sub/workoutList.jsp");
         dispatcher.forward(request, response);

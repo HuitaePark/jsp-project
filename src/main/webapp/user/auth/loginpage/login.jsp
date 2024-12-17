@@ -18,7 +18,7 @@
             </div>
             <div class="login-buttons">
                 <button type="submit">로그인</button>
-                <button type="button" onclick="location.href='/user/auth/joinpage/join2/join2.jsp'">회원가입</button>
+                <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/auth/joinpage/join2/join2.jsp'">회원가입</button>
             </div>
         </form>
 			<div class="sns-login">

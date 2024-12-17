@@ -4,6 +4,13 @@
 <%@ page import="com.jspproject.bodyinfo.BodyInfoDTO" %>
 <%@ page import="com.jspproject.mypage.MemberDTO" %>
 
+<%	//임시로 memberid 넣어둠
+	MemberDTO member = new MemberDTO();
+	member.setMemberid("user1");
+	BodyInfoDTO bmi = new BodyInfoDTO();
+	bmi.setMemberid("user1");
+	
+%>
 
 <!DOCTYPE html>
 <html lang="UTF-8">
@@ -26,7 +33,7 @@
             <h1 class="text-2xl font-bold mb-6">회원정보수정</h1>
             
             <!-- hidden input으로 회원 ID 전달 -->
-    		<input type="hidden" name="memberid" value="memberid" />
+    		<input type="hidden" name="memberid" value="${member.memberid}" />	<!-- 추후 로그인 기능 연동 시 member 지우기 -->
     		
             <!-- 프로필 섹션 -->
             <div class="flex flex-col items-center mb-10">
@@ -74,18 +81,18 @@
             </div>
 			<!-- 버튼 -->
             <div class="flex flex-row-reverse">
-                <button id="bodyInfoButton" class="px-4 py-2 bg-gray-800 border border-white rounded-md justify-end items-right">신체정보수정</button>
+                <button type="button" name="bodyInfoButton" id="bodyInfoButton" class="px-4 py-2 bg-gray-800 border border-white rounded-md justify-end items-right">신체정보수정</button>
             	<!-- 확인버튼 -->
                 <button type="submit" class="px-4 py-2 bg-gray-800 border border-white rounded-md justify-end items-right">수정완료</button>
             </div>
             </form>
             
             
-            <form id="bmiForm">
-            <div id="bodyInfo" class="hidden">
+            <form action="${pageContext.request.contextPath}/saveBodyInfo" method="post">
+            <div id="bodyInfoSection">
             
             <!-- hidden input으로 회원 ID 전달 -->
-    		<input type="hidden" name="memberid" value="memberid" />
+    		<input type="hidden" name="memberid" value="<%= bmi.getMemberid() %>" />	<!-- 추후 로그인 기능 연동 시 bmi 지우기 -->
     		
             <!-- 키 -->
             <div class="mb-4">
@@ -112,9 +119,9 @@
                 <div class="flex items-center">
                     <div class="flex-2 w-full">
 	                    <select id="gender" name="gender" class="bg-black text-white border-b border-gray-500 w-full focus:outline-none focus:border-white">
-	                        <option value="남성">남성</option>
-	                        <option value="여성">여성</option>
-	                        <option value="선택안함">선택안함</option>
+	                        <option value="M">남성</option>
+	                        <option value="F">여성</option>
+	                        <option value="NoN">선택안함</option>
 	                    </select>
                	 	</div>
                     <button class="ml-2 text-sm text-gray-400">✏️</button>
@@ -136,14 +143,17 @@
 	            </div>
 		    </div>
 		    </div>
-			</form>
-            
-            
             
             <div id="inbodyInsert" class="flex mt-8 text-center flex items-center justify-center hidden">
-            <div class="mb-4 flex">
-                <img src="<%=request.getContextPath() %>/user/mypage/img/body.png" alt="체형 그래프" class="mx-auto">
-            </div>
+            <div id="chartContainer" style="position: relative; width: 250px; height: 500px;">
+			    <!-- 배경 이미지 -->
+			    <img src="<%=request.getContextPath() %>/user/mypage/img/body.png" alt="Human Background" style="width: 80%; height: 80%; position: absolute; top: 0; left: 0; z-index: 0;">
+			    <!-- 차트 캔버스 -->
+			    <canvas id="radarChart" style="position: absolute; width: 100%; height: 100%; top: -70px; left: -35px; z-index: 1;"></canvas>
+			</div>
+            <div id="radarChartSection" class="mt-6 hidden">
+    			<canvas id="radarChart" style="max-width: 600px; margin: auto;"></canvas>
+			</div>
             <div>
             	<div class="flex items-center">
                 <label for="weight" class="flex-1 text-right pr-4">몸통</label>
@@ -169,16 +179,22 @@
                 <label for="weight" class="flex-1 text-right pr-4">오른다리</label>
                 <input type="text" id="rightLeg" name="rightLeg" placeholder="골격근량을 입력(kg)" value="${rightLeg}" class="flex-2 bg-black text-white border-b border-gray-500 focus:outline-none focus:border-white">
             	</div>
+            	<button type="button" id="chart" class="mt-4 px-4 py-2 bg-gray-800 border border-white rounded-md">입력</button>
+            	<img src="" alt="티어" class="mx-auto hidden">
             </div>
+            
+            
+            
             </div>
             <div id="bmiResultSection" class="mt-6 flex-1 p-8 hidden">
+            	<input type="hidden" id="bmiHidden" name="bmi" value="bmiValue" />
                 <p id="bmiResult" class="text-lg font-bold mb-4">BMI지수: <span id="bmiValue"></span></p>
                 <div style="width: 100%; max-width: 600px; height: 100px; margin: auto;">
                     <canvas id="bmiChart"></canvas>
                 </div>
-                <button id="saveButton" class="mt-4 px-4 py-2 bg-gray-800 border border-white rounded-md" disabled>저장</button>
+                <button type="submit" id="saveButton" class="mt-4 px-4 py-2 bg-gray-800 border border-white rounded-md" disabled>저장</button>
         	</div>
-            
+            </form>
         </main>
     </div>
     
@@ -189,14 +205,20 @@
 			    let bmiChart;
 			    
 			    document.getElementById('bodyInfoButton').addEventListener('click', function () {
-			    	const bodyInfo = document.getElementById('bodyInfo');
-	                if (bodyInfo.classList.contains('hidden')) {
-	                	bodyInfo.classList.remove('hidden');
-	                } else {
-	                	bodyInfo.classList.add('hidden');
-	                }
-			    });
-	
+		            const bodyInfoSection = document.getElementById('bodyInfoSection');
+		            bodyInfoSection.classList.toggle('hidden');
+		            const selectedGender = document.getElementById('gender').value;
+		            let gender;
+		            if (selectedGender === '남성') {
+		                gender = 'M';
+		            } else if (selectedGender === '여성') {
+		                gender = 'F';
+		            } else {
+		                gender = 'NoN';
+		            }
+		        });
+			    
+			    
 		        // '입력' 버튼 클릭 이벤트
 		        document.getElementById('calculateButton').addEventListener('click', function () {
 		        	/*const memberidElement = document.getElementById('memberid');
@@ -212,6 +234,8 @@
 		            if (height && weight) {
 		                const bmi = (weight / ((height / 100) ** 2)).toFixed(2); // BMI 계산
 		                document.getElementById('bmiValue').textContent = bmi;
+		                document.getElementById('bmiHidden').value = bmi;
+		                document.getElementById('saveButton').disabled = false;
 	
 		                // 차트 생성 또는 업데이트
 		                const ctx = document.getElementById('bmiChart').getContext('2d');
@@ -274,72 +298,99 @@
 		                alert('키와 몸무게를 입력해주세요.');
 		            }
 		        });
-	
-		    document.addEventListener('DOMContentLoaded', function () {
-		        // '저장' 버튼 클릭 이벤트
-		        document.getElementById('saveButton').addEventListener('click', function () {
-		        	const memberid = document.getElementById('memberid').value;
-		            const height = document.getElementById('height').value;
-		            const weight = document.getElementById('weight').value;
-		            const age = document.getElementById('age').value;
-		            const bmi = (weight / ((height / 100) ** 2)).toFixed(2); // 다시 BMI 계산
-		            
-		            const genderSelect = document.getElementById('gender');
-		            const selectedGender = genderSelect.value;
-		            const body = document.getElementById('body').value;
-		            const leftArm = document.getElementById('leftArm').value;
-		            const rightArm = document.getElementById('rightArm').value;
-		            const leftLeg = document.getElementById('leftLeg').value;
-		            const rightLeg = document.getElementById('rightLeg').value;
-		            let gender;
-		            if (selectedGender === '남성') {
-		                gender = 'M';
-		            } else if (selectedGender === '여성') {
-		                gender = 'F';
-		            } else {
-		                gender = 'NoN';
+		        
+		     ////////////
+		     // Radar Chart 객체를 저장할 변수
+		        let radarChart;
+
+		        // '입력' 버튼 클릭 이벤트
+		        document.getElementById('chart').addEventListener('click', function () {
+		            const body = parseFloat(document.getElementById('body').value);
+		            const leftArm = parseFloat(document.getElementById('leftArm').value);
+		            const rightArm = parseFloat(document.getElementById('rightArm').value);
+		            const leftLeg = parseFloat(document.getElementById('leftLeg').value);
+		            const rightLeg = parseFloat(document.getElementById('rightLeg').value);
+
+		            // 입력값 유효성 검사
+		            if (isNaN(body) || isNaN(leftArm) || isNaN(rightArm) || isNaN(leftLeg) || isNaN(rightLeg)) {
+		                alert("모든 값을 올바르게 입력해주세요.");
+		                return;
 		            }
 		            
-		            const formData = new URLSearchParams();
-		            formData.append('memberid', memberid);
-		            formData.append('height', height);
-		            formData.append('weight', weight);
-		            formData.append('gender', gender);
-		            formData.append('age', age);
-		            formData.append('bmi', bmi);
-		            formData.append('body', body);
-		            formData.append('leftArm', leftArm);
-		            formData.append('rightArm', rightArm);
-		            formData.append('leftLeg', leftLeg);
-		            formData.append('rightLeg', rightLeg);
-	
-		            // AJAX 요청으로 데이터 저장
-		            fetch('${pageContext.request.contextPath}/saveBodyInfo', {
-		                method: 'POST',
-		                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		                body: formData.toString(),
-		            })
-		                .then(response => {
-		                    if (response.ok) {
-		                        return response.text();
-		                    } else {
-		                        throw new Error('서버 응답이 올바르지 않습니다.');
+		            
+		         // 점수 계산
+		            const totalScore = body + leftArm + rightArm + leftLeg + rightLeg;
+		            console.log('Total Score:', totalScore);
+
+		            // 티어 계산 함수
+		            const calculateTier = (score) => {
+		                if (score <= 89) return 'bronze';
+		                if (score <= 109) return 'silver';
+		                if (score <= 139) return 'gold';
+		                if (score <= 179) return 'platinum';
+		                if (score <= 219) return 'diamond';
+		                if (score <= 239) return 'master';
+		                return 'grandmaster';
+		            };
+		            
+		            const tierName = calculateTier(totalScore);
+		            
+		            const tierImage = document.querySelector('img[alt="티어"]');
+		            if (tierImage) {
+		            	tierImage.src = '/user/mypage/img/tier/' + tierName + '.png';
+		            	tierImage.classList.remove('hidden');
+		            	console.log('Tier Image Path:', tierImage.src);
+		            }
+		            
+
+		            // 데이터 배열 생성
+		            const radarData = [body, leftArm, rightArm, leftLeg, rightLeg];
+
+		            // Radar Chart 생성
+		            const ctx = document.getElementById('radarChart').getContext('2d');
+		            if (radarChart) {
+		                // 이미 차트가 있으면 데이터 업데이트
+		                radarChart.data.datasets[0].data = radarData;
+		                radarChart.update();
+		            } else {
+		                // 새 차트 생성
+		                radarChart = new Chart(ctx, {
+		                    type: 'radar',
+		                    data: {
+		                        labels: ['몸통', '왼팔', '오른팔', '왼다리', '오른다리'],
+		                        datasets: [
+		                            {
+		                                label: '신체 데이터',
+		                                data: radarData,
+		                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+		                                borderColor: 'rgba(255, 99, 132, 1)',
+		                                borderWidth: 2,
+		                            }
+		                        ],
+		                    },
+		                    options: {
+		                        responsive: true,
+		                        maintainAspectRatio: false, // 캔버스 크기 유지
+		                        scales: {
+		                            r: {
+		                                beginAtZero: true,
+		                                suggestedMin: 0,
+		                                suggestedMax: 50,
+		                            }
+		                        },
+		                        plugins: {
+		                            legend: {
+		                                display: true,
+		                                position: 'top',
+		                            }
+		                        }
 		                    }
-		                })
-		                .then(data => {
-		                    alert('데이터가 성공적으로 저장되었습니다.');
-		                    // 성공 메시지를 표시하거나, DOM 업데이트
-		                    const successMessage = document.createElement('p');
-		                    successMessage.textContent = '데이터가 성공적으로 저장되었습니다.';
-		                    successMessage.classList.add('text-green-500', 'mt-4');
-		                    document.body.appendChild(successMessage); // 메시지를 페이지에 추가
-		                })
-		                .catch(error => {
-		                    console.error('저장 중 오류 발생:', error);
-		                    alert('데이터 저장 중 오류가 발생했습니다.');
 		                });
+		            }
 		        });
-		    });
+		        
+		        
+		        console.log('Tier Image Path:', `/user/mypage/img/tier/${tierName}.png`);
 
 			</script>
 </body>

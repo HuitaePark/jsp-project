@@ -19,6 +19,7 @@ public class LogoutController extends HttpServlet {
         session.removeAttribute("loginInfo");
         session.invalidate();
 
-        resp.sendRedirect("/");
+        // 로그아웃 이후 무조건 index.jsp로 리다이렉트
+        resp.sendRedirect(req.getContextPath() + "/main/index.jsp");
     }
 }

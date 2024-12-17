@@ -35,7 +35,7 @@ public class RatingController extends HttpServlet {
             // memberIdInt = new MemberDAO().getMemberIdByUsername(user.getUsername());
             // session.setAttribute("memberId", memberIdInt);
             // 여기서는 가상의 값:
-            memberIdInt = 123; // 실제 로직 필요
+            memberIdInt = 1; // 실제 로직 필요
         }
 
         String comment = request.getParameter("comment");
@@ -113,6 +113,6 @@ public class RatingController extends HttpServlet {
         }
 
         // 완료 후 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/workoutDetail.jsp?workoutId=" + workoutId);
+        response.sendRedirect(request.getContextPath() + "/sub/workoutDetail.jsp?workoutId=" + workoutId);
     }
 }

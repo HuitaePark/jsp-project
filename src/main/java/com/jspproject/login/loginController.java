@@ -23,7 +23,7 @@ public class loginController extends HttpServlet {
             session.setAttribute("loginInfo", user);
             response.sendRedirect(request.getContextPath() + "/main/index.jsp");
         } else {
-            response.sendRedirect(request.getContextPath() + "/user/auth/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/auth/loginpage/login.jsp");
         }
     }
 }

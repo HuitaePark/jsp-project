@@ -3,6 +3,7 @@ package com.jspproject.sub;
 import com.jspproject.util.DatabaseUtil;
 import com.jspproject.login.loginDTO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@WebServlet("/likeReview")
 public class LikeReivewController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

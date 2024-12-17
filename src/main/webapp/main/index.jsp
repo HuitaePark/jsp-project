@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,34 +35,104 @@
         section{
             margin: 100px;
         }
+        .section {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1500px;
+            margin-top: 500px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .section-header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header a:hover {
+            text-decoration: underline;
+        }
+
+        .section-header a svg {
+            margin-left: 5px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-card .manufacturer {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .product-card .price {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .product-card .price .original {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 10px;
+        }
+
+        .product-card .price .discounted {
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
     <script type="text/javascript">
         var contextPath = '<%= request.getContextPath() %>';
     </script>
 </head>
 <body class="w-full">
-<!-- 헤더 시작 -->
-<header class="w-full fixed top-0 left-0 z-50" style="height: 80px;">
-    <div class="mx-auto flex items-center justify-between h-full max-w-custom px-4">
-        <!-- 햄버거 메뉴 -->
-        <img src="<%= request.getContextPath() %>/images/hamburger.png" alt="메뉴" class="hamburger" id="hamburger" style="width:30px; height:30px;">
-        <!-- 네비게이션 링크 -->
-        <nav class="navigation flex space-x-4 justify-end">
-            <a href="#">Home</a>
-            <a href="#">운동정보</a>
-            <a href="#">내정보</a>
-            <a href="#" style="border-radius: 0; background-color: #871e9b;">로그인</a>
-        </nav>
-    </div>
-    <!-- 드롭다운 메뉴 -->
-    <div class="dropdown-menu flex flex-col items-center" id="dropdown-menu">
-        <a href="#">Home</a>
-        <a href="#">운동정보</a>
-        <a href="#">내정보</a>
-        <a href="#">로그인</a>
-    </div>
-</header>
+<jsp:include page="/header.jsp" />
 <!-- 헤더 끝 -->
+
 
 <!-- 슬라이더 시작 -->
 <div class="swiper-container w-full max-w-custom mx-auto mt-20" style="height: 500px; overflow: hidden; position: relative;">
@@ -86,7 +157,7 @@
 <!-- 슬라이더 끝 -->
 
 <div class="flex justify-center items-center text-6xl margin-8 mt-5 border-black p-4 font-anton">
-    <h1>Your Fitness Web Site!</h1>
+    <h1>Your Fitness Review Site!</h1>
 </div>
 
 <!-- 카테고리 섹션 시작 -->
@@ -103,122 +174,94 @@
     <div id="exercise-container" class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
         <!-- 운동 아이템들이 여기에 표시됩니다 -->
     </div>
+    <br>
     <!-- 더보기 버튼 -->
     <div id="more-button-container" class="mt-4 text-center">
-        <button id="more-button" class="hidden">더보기</button>
+        <a href="${pageContext.request.contextPath}/sub/workoutList.jsp">
+            <button id="more-button" class="hidden">더보기</button>
+        </a>
     </div>
+
+
+<div class="flex justify-center" style="margin-top: 500px;">
+    <jsp:include page="/main/board.jsp" />
 </div>
-<!-- 카테고리 섹션 끝 -->
 
-<!-- 추가된 컨텐츠 시작 -->
-<div class="content">
-    <div class="content-one">
-        <div class="content-first-title">
-            <h2>당신의 피트니스 여정을 함께 합시다.</h2>
-        </div>
-        <div class="content-first-imgbox">
-            <img src="<%= request.getContextPath() %>/images/image39.png" class="content-first-img1"/>
-        </div>
-    </div>
 
-    <div class="content-two">
-        <div class="content-left">
-            <img src="<%= request.getContextPath() %>/images/img3.jpg" class="content-two-img"/>
-            <img src="<%= request.getContextPath() %>/images/img4.jpg" class="content-two-img"/>
+    <section class="section">
+        <!-- 헤더 -->
+        <div class="section-header">
+            <h2>스토어 카테고리</h2>
+            <a href="#">
+                구매하러 가기
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
         </div>
-        <div class="content-right">
-            <img src="<%= request.getContextPath() %>/images/img5.jpg" class="content-two-right-img"/>
-            <img src="<%= request.getContextPath() %>/images/img6.jpg" class="content-two-right-img"/>
-        </div>
-    </div>
 
-    <div class="content-three">
-        <div class="content-three-left">
-            <div class="content-three-left-title">
-                <div class="font-anton text-4xl">
-                <h2>Store</h2>
+        <!-- 제품 카드 그리드 -->
+        <div class="product-grid">
+            <!-- 반복되는 상품 카드 -->
+            <div class="product-card">
+                <img src="<%= request.getContextPath() %>/main/images/product1.png" alt="상품 이미지">
+                <h3>스타우트 프로틴</h3>
+                <p class="manufacturer">제조사: 베이커브랜드</p>
+                <div class="price">
+                    <span class="original">₩80,000</span>
+                    <span class="discounted">₩49,000</span>
                 </div>
-                <p>당신의 피트니스 여정을 함께합니다</p>
             </div>
-            <div class="content-three-arrow">
-                <img src="<%= request.getContextPath() %>/images/left-arrow.png" class="content-three-left-arrow"/>
-                <img src="<%= request.getContextPath() %>/images/right-arrow.png" class="content-three-right-arrow"/>
-            </div>
-            <div class="content-three-left-img">
-                <img src="<%= request.getContextPath() %>/images/image39.png"/>
-            </div>
-        </div>
 
-        <div class="content-three-right">
-            <div class="content-three-right-img">
-                <img src="<%= request.getContextPath() %>/images/image39.png"/>
+            <div class="product-card">
+                <img src="<%= request.getContextPath() %>/main/images/product2.png" alt="상품 이미지">
+                <h3>스타우트 프로틴</h3>
+                <p class="manufacturer">제조사: 파워쉐이크</p>
+                <div class="price">
+                    <span class="original">₩80,000</span>
+                    <span class="discounted">₩49,000</span>
+                </div>
             </div>
-            <div class="content-three-right-title font-anton">
-                <p>LOCATION</p>
+
+            <div class="product-card">
+                <img src="<%= request.getContextPath() %>/main/images/product3.jpg" alt="상품 이미지">
+                <h3>얼티밋 골드</h3>
+                <p class="manufacturer">제조사: 피트밀</p>
+                <div class="price">
+                    <span class="original">₩97,400</span>
+                    <span class="discounted">₩93,504</span>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="<%= request.getContextPath() %>/main/images/product4.png" alt="상품 이미지">
+                <h3>퍼스널 벌크 포뮬러</h3>
+                <p class="manufacturer">제조사: 프로틴라이프</p>
+                <div class="price">
+                    <span class="original">₩45,000</span>
+                    <span class="discounted">₩37,000</span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- 추가된 컨텐츠 끝 -->
+    </section>
+
 <!-- 공지사항 섹션 -->
-<section class="flex mt-8 text-center">
-    <h2 class="transform -rotate-90 text-4xl font-bold whitespace-nowrap">INFORMATION</h2>
-    <ul class="mt-4 space-y-2">
-        <li><a href="#" class="hover:underline text-2xl">공지사항 1</a></li>
-        <li><a href="#" class="hover:underline text-2xl">공지사항 2</a></li>
-        <li><a href="#" class="hover:underline text-2xl">공지사항 3</a></li>
-        <li><a href="#" class="hover:underline text-2xl">공지사항 4</a></li>
+<section class="justify-center items-center" style="margin-top: 500px; height: 700px; padding: 20px;">
+    <!-- 세로 글자 -->
+    <h2 class="transform -rotate-90 font-bold mr-12" style=" font-size: 80px; color: white; text-transform: uppercase; letter-spacing: 5px;">
+        Information
+    </h2>
+
+    <!-- 공지사항 리스트 -->
+    <ul style="line-height: 2.5; color: white; font-size: 24px; text-align: left; list-style-type: none; padding-left: 0;">
+        <li><a href="#" class="hover:underline">올바른 스쿼트 자세 꿀팁 공개</a></li>
+        <li><a href="#" class="hover:underline">30일 플랭크 챌린지 - 도전하고 상품 받기</a></li>
+        <li><a href="#" class="hover:underline">헬스장 1월 프로모션 - 이용권 최대 20% 할인</a></li>
+        <li><a href="#" class="hover:underline">최신 운동 트렌드 정보</a></li>
     </ul>
 </section>
-<!-- 브랜드 섹션 -->
-<section class="mt-8 px-4 max-w-[1440px] mx-auto text-center">
-    <!-- 브랜드 설명과 버튼 -->
-    <div class="flex flex-col items-center space-y-4">
-        <h2 class="text-lg font-semibold">BRAND</h2>
-        <p class="text-sm">운동복 및 액세서리 브랜드</p>
-        <button class="px-4 py-2 bg-purple-600 rounded text-white">더보기</button>
-    </div>
-
-    <!-- 브랜드 슬라이더 -->
-    <div class="relative w-full max-w-lg mx-auto mt-4">
-        <!-- 슬라이더 내용 -->
-        <div id="brand-slider" class="flex transition-transform duration-500">
-            <!-- 슬라이드 그룹 (각 그룹에 6개의 이미지) -->
-            <div class="grid grid-cols-3 grid-rows-2 gap-4">
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 1" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 2" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 3" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 4" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 5" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 6" class="w-full h-24 object-cover"></div>
-            </div>
-            <!-- 추가 슬라이드 그룹 -->
-            <div class="grid grid-cols-3 grid-rows-2 gap-4">
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 7" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 8" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 9" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 10" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/nike.png" alt="Brand 11" class="w-full h-24 object-cover"></div>
-                <div><img src="<%= request.getContextPath() %>/images/adidas.png" alt="Brand 12" class="w-full h-24 object-cover"></div>
-            </div>
-        </div>
-
-        <!-- 네비게이션 버튼과 인디케이터 -->
-        <div class="flex justify-center items-center mt-4 space-x-2">
-            <button id="prev" class="text-white">❮</button>
-            <div class="flex space-x-1">
-                <!-- 슬라이드 인디케이터 -->
-                <span class="w-2 h-2 bg-white rounded-full inline-block"></span>
-                <span class="w-2 h-2 bg-white rounded-full inline-block"></span>
-            </div>
-            <button id="next" class="text-white">❯</button>
-        </div>
-    </div>
-</section>
-
 <!-- 푸터 포함 -->
-<%@ include file="../footer.jsp" %>
-
+<jsp:include page="/footer.jsp" />
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- 슬라이더 초기화 -->
@@ -245,32 +288,33 @@
 </script>
 
 <!-- 운동 카테고리 스크립트 -->
+
 <script>
     const exercises = {
         arms: [
-            { name: '덤벨 컬', image: contextPath + '/images/dumbbell-curl.png' },
-            { name: '바벨 컬', image: contextPath + '/images/barbell-curl.png' },
-            { name: '트라이셉스 익스텐션', image: contextPath + '/images/triceps-extension.png' },
+            { id: 7, name: '덤벨 컬', image: contextPath + '/images/dumbbell-curl.png' },
+            { id: 8, name: '바벨 컬', image: contextPath + '/images/barbell-curl.png' },
+            { id: 9, name: '트라이셉스 익스텐션', image: contextPath + '/images/triceps-extension.png' },
         ],
         chest: [
-            { name: '벤치 프레스', image: contextPath + '/images/bench-press.png' },
-            { name: '푸쉬업', image: contextPath + '/images/push-up.png' },
-            { name: '덤벨 플라이', image: contextPath + '/images/dumbbell-fly.png' },
+            { id: 4, name: '벤치 프레스', image: contextPath + '/images/bench-press.png' },
+            { id: 2, name: '푸쉬업', image: contextPath + '/images/push-up.png' },
+            { id: 10, name: '덤벨 플라이', image: contextPath + '/images/dumbbell-fly.png' },
         ],
         legs: [
-            { name: '스쿼트', image: contextPath + '/images/squrt.png' },
-            { name: '런지', image: contextPath + '/images/lunge.png' },
-            { name: '레그 프레스', image: contextPath + '/images/leg-press.png' },
+            { id: 1, name: '스쿼트', image: contextPath + '/images/squrt.png' },
+            { id: 5, name: '런지', image: contextPath + '/images/lunge.png' },
+            { id: 11, name: '레그 프레스', image: contextPath + '/images/leg-press.png' },
         ],
         back: [
-            { name: '데드리프트', image: contextPath + '/images/deadlift.png' },
-            { name: '렛 풀다운', image: contextPath + '/images/latpulldown.png' },
-            { name: '바벨 로우', image: contextPath + '/images/barbell-row.png' },
+            { id: 12, name: '데드리프트', image: contextPath + '/images/deadlift.png' },
+            { id: 13, name: '렛 풀다운', image: contextPath + '/images/latpulldown.png' },
+            { id: 6, name: '바벨 로우', image: contextPath + '/images/barbell-row.png' },
         ],
         shoulders: [
-            { name: '숄더 프레스', image: contextPath + '/images/shoulder-press.png' },
-            { name: '사이드 레터럴 레이즈', image: contextPath + '/images/sarere.png' },
-            { name: '프론트 레이즈', image: contextPath + '/images/front-raise.png' },
+            { id: 3, name: '숄더 프레스', image: contextPath + '/images/shoulder-press.png' },
+            { id: 14, name: '사이드 레터럴 레이즈', image: contextPath + '/images/sarere.png' },
+            { id: 15, name: '프론트 레이즈', image: contextPath + '/images/front-raise.png' },
         ],
     };
 
@@ -291,6 +335,11 @@
                 const exerciseItem = document.createElement('div');
                 exerciseItem.classList.add('exercise-item', 'border', 'p-4', 'rounded');
 
+                // 운동 디테일 페이지로 이동할 수 있는 링크 생성
+                const link = document.createElement('a');
+                link.href = contextPath + '/sub/workoutDetail.jsp?workoutId=' + exercise.id;
+                link.classList.add('block');
+
                 const img = document.createElement('img');
                 img.src = exercise.image;
                 img.alt = exercise.name;
@@ -300,8 +349,9 @@
                 name.textContent = exercise.name;
                 name.classList.add('text-lg', 'font-bold', 'text-center');
 
-                exerciseItem.appendChild(img);
-                exerciseItem.appendChild(name);
+                link.appendChild(img);
+                link.appendChild(name);
+                exerciseItem.appendChild(link);
 
                 exerciseContainer.appendChild(exerciseItem);
             });
@@ -315,21 +365,6 @@
         if (defaultButton) {
             defaultButton.click();
         }
-    });
-
-    moreButton.addEventListener('click', () => {
-        alert('더 많은 운동을 보려면 로그인하세요!');
-    });
-</script>
-
-<!-- 햄버거 메뉴 스크립트 -->
-<script>
-    const hamburger = document.getElementById('hamburger');
-    const dropdownMenu = document.getElementById('dropdown-menu');
-
-    hamburger.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('flex');
-        dropdownMenu.classList.toggle('hidden');
     });
 </script>
 <!-- 브랜드 슬라이더 스크립트 추가 -->
@@ -358,4 +393,4 @@
     });
 </script>
 </body>
-</html>x
+</html>
